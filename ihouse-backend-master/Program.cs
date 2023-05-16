@@ -3,6 +3,12 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Services.AddCors(o => o.AddPolicy("MyPolicy", builder =>
+    {
+      builder.AllowAnyOrigin()
+             .AllowAnyMethod()
+             .AllowAnyHeader();
+    }));
 // Add services to the container.
 
 builder.Services.AddControllers();
@@ -10,9 +16,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddDbContext<UserContext>(
-		o => o.UseNpgsql(builder.Configuration.GetConnectionString("UserDB"))
-	);
-			
+    o => o.UseNpgsql(builder.Configuration.GetConnectionString("UserDB"))
+  );
+
+
+
 var app = builder.Build();
 
 app.Use(async (context, nextMiddleware) =>
@@ -28,14 +36,11 @@ app.Use(async (context, nextMiddleware) =>
         });
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment()) {
-	app.UseSwagger();
-	app.UseSwaggerUI();
+if (app.Environment.IsDevelopment())
+{
+  app.UseSwagger();
+  app.UseSwaggerUI();
 }
-
-app.UseHttpsRedirection();
-
-app.UseAuthorization();
 
 app.MapControllers();
 

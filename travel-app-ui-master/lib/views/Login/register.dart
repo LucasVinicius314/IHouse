@@ -18,30 +18,21 @@ final TextEditingController _emailController = TextEditingController();
 
 Future<void> postUserData(
     String firstName, String secondName, String password, String email) async {
-  final url = Uri.parse('https://localhost:7185/api/Users');
-  final headers = {'Content-Type': 'application/json'};
-  final data = {
-    'id': 3,
-    'username': firstName + secondName,
-    'email': email,
-    'password': password
-  };
-  var response;
+  final url = Uri.parse('http://localhost:7185/api/Users');
 
   try {
-    response = await http.post(
+    final response = await http.get(
       url,
-      headers: headers,
-      body: json.encode(data),
+      headers: {'Content-Type': 'application/json'},
     );
+
+    if (response.statusCode == 200) {
+      print(response.body);
+    } else {
+      print('Erro ao enviar dados para o servidor.');
+    }
   } catch (e) {
     print('Ocorreu uma exceção: $e');
-  }
-
-  if (response.statusCode == 200) {
-    print(response.body);
-  } else {
-    print('Erro ao enviar dados para o servidor.');
   }
 }
 
@@ -219,12 +210,12 @@ class _Register extends State<Register> {
                               ),
                             ),
                             onPressed: () {
-                              if (_formKey.currentState!.validate()) {
-                                Navigator.of(context).pushAndRemoveUntil(
-                                    MaterialPageRoute(
-                                        builder: (context) => HomePage()),
-                                    (Route<dynamic> route) => false);
-                              }
+                              // if (_formKey.currentState!.validate()) {
+                              //   Navigator.of(context).pushAndRemoveUntil(
+                              //       MaterialPageRoute(
+                              //           builder: (context) => HomePage()),
+                              //       (Route<dynamic> route) => false);
+                              // }
                               postUserData(
                                   _firstNameController.text,
                                   _secondNameController.text,
