@@ -113,8 +113,8 @@ class _ViewDetailsState extends State<ViewDetails> {
                         ),
                         Text(
                           "5 Days",
-                          style: appTheme.textTheme.bodySmall
-                              .merge(TextStyle(color: appTheme.colorScheme.secondary)),
+                          style: appTheme.textTheme.bodySmall!.merge(
+                              TextStyle(color: appTheme.colorScheme.secondary)),
                         ),
                       ],
                     ),
@@ -123,7 +123,7 @@ class _ViewDetailsState extends State<ViewDetails> {
                     ),
                     Text(
                       "Description",
-                      style: appTheme.textTheme.displaySmall
+                      style: appTheme.textTheme.displaySmall!
                           .merge(TextStyle(color: Colors.black)),
                     ),
                     SizedBox(height: 12),
@@ -133,7 +133,7 @@ class _ViewDetailsState extends State<ViewDetails> {
                       overflow: TextOverflow.fade,
                       style: appTheme.textTheme.bodyLarge,
                     ),
-                    SizedBox(height: size.height*0.02),
+                    SizedBox(height: size.height * 0.02),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [

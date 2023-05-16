@@ -11,8 +11,8 @@ import '../models/weather.dart';
 
 class WeatherProvider with ChangeNotifier {
   String apiKey = '3b8bb3d1b16659739c0b3d2a6bac4052';
-  LatLng currentLocation;
-  Weather weather;
+  LatLng? currentLocation;
+  Weather? weather;
   DailyWeather currentWeather = DailyWeather();
   List<DailyWeather> hourlyWeather = [];
   List<DailyWeather> hourly24Weather = [];
@@ -31,8 +31,8 @@ class WeatherProvider with ChangeNotifier {
       (value) async {
         if (value) {
           final locData = await Location().getLocation();
-          currentLocation = LatLng(locData.latitude, locData.longitude);
-          await getCurrentWeather(currentLocation); 
+          currentLocation = LatLng(locData.latitude!, locData.longitude!);
+          await getCurrentWeather(currentLocation!);
           //await getDailyWeather(currentLocation);
         } else {
           isLoading = false;
@@ -126,7 +126,7 @@ class WeatherProvider with ChangeNotifier {
     }
   }
 
-  Future<void> searchWeather({String location}) async {
+  Future<void> searchWeather({required String location}) async {
     isLoading = true;
     isRequestError = false;
     isLocationError = false;

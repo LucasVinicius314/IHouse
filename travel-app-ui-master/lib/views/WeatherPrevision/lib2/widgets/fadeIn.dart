@@ -4,10 +4,10 @@ import 'package:flutter/widgets.dart';
 
 class FadeIn extends StatefulWidget {
   /// Fade-in controller
-  final FadeInController controller;
+  final FadeInController? controller;
 
   /// Child widget to fade-in
-  final Widget child;
+  final Widget? child;
 
   /// Duration of fade-in. Defaults to 250ms
   final Duration duration;
@@ -16,7 +16,7 @@ class FadeIn extends StatefulWidget {
   final Curve curve;
 
   const FadeIn({
-    Key key,
+    Key? key,
     this.controller,
     this.child,
     this.duration = const Duration(milliseconds: 250),
@@ -57,8 +57,8 @@ class FadeInController {
 }
 
 class _FadeInState extends State<FadeIn> with TickerProviderStateMixin {
-  AnimationController _controller;
-  StreamSubscription<FadeInAction> _listener;
+  AnimationController? _controller;
+  StreamSubscription<FadeInAction>? _listener;
 
   @override
   void initState() {
@@ -71,7 +71,7 @@ class _FadeInState extends State<FadeIn> with TickerProviderStateMixin {
 
     _setupCurve();
 
-    if (widget.controller?.autoStart != false) {
+    if (widget.controller!.autoStart != false) {
       fadeIn();
     }
 
@@ -79,7 +79,7 @@ class _FadeInState extends State<FadeIn> with TickerProviderStateMixin {
   }
 
   void _setupCurve() {
-    final curve = CurvedAnimation(parent: _controller, curve: widget.curve);
+    final curve = CurvedAnimation(parent: _controller!, curve: widget.curve);
 
     Tween(
       begin: 0.0,
@@ -88,14 +88,10 @@ class _FadeInState extends State<FadeIn> with TickerProviderStateMixin {
   }
 
   void _listen() {
-    if (_listener != null) {
-      _listener.cancel();
-      _listener = null;
-    }
+    _listener?.cancel();
+    _listener = null;
 
-    if (widget.controller != null) {
-      _listener = widget.controller.stream.listen(_onAction);
-    }
+    _listener = widget.controller?.stream.listen(_onAction);
   }
 
   void _onAction(FadeInAction action) {
@@ -116,7 +112,7 @@ class _FadeInState extends State<FadeIn> with TickerProviderStateMixin {
     }
 
     if (oldWidget.duration != widget.duration) {
-      _controller.duration = widget.duration;
+      _controller?.duration = widget.duration;
     }
 
     if (oldWidget.curve != widget.curve) {
@@ -128,7 +124,7 @@ class _FadeInState extends State<FadeIn> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller?.dispose();
     _listener?.cancel();
     super.dispose();
   }
@@ -136,14 +132,14 @@ class _FadeInState extends State<FadeIn> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return FadeTransition(
-      opacity: _controller,
+      opacity: _controller!,
       child: widget.child,
     );
   }
 
   /// Fades-in child
-  void fadeIn() => _controller.forward();
+  void fadeIn() => _controller?.forward();
 
   /// Fades-out child
-  void fadeOut() => _controller.reverse();
+  void fadeOut() => _controller?.reverse();
 }

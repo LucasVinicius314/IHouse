@@ -7,10 +7,10 @@ import '../provider/weatherProvider.dart';
 
 class WeatherInfo extends StatelessWidget {
   Widget _weatherInfoBuilder({
-    String header,
-    String body,
-    IconData icon,
-    double iconSize,
+    String? header,
+    String? body,
+    IconData? icon,
+    double? iconSize,
   }) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.start,
@@ -27,13 +27,13 @@ class WeatherInfo extends StatelessWidget {
           children: [
             FittedBox(
               child: Text(
-                header,
+                header!,
                 style: TextStyle(fontWeight: FontWeight.w400, fontSize: 15),
               ),
             ),
             FittedBox(
               child: Text(
-                body,
+                body!,
                 style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
               ),
             ),

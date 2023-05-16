@@ -7,7 +7,6 @@ import '../widgets/fadeIn.dart';
 import '../widgets/locationError.dart';
 import '../widgets/mainWeather.dart';
 import '../widgets/requestError.dart';
-import '../widgets/searchBar.dart';
 import '../widgets/weatherDetail.dart';
 import '../widgets/sevenDayForecast.dart';
 

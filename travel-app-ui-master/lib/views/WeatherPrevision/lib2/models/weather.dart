@@ -1,18 +1,18 @@
 import 'package:flutter/cupertino.dart';
 
 class Weather with ChangeNotifier {
-  final double temp;
-  final double tempMax;
-  final double tempMin;
-  final double lat;
-  final double long;
-  final double feelsLike;
-  final int pressure;
-  final String description;
-  final String currently;
-  final int humidity;
-  final double windSpeed;
-  final String cityName;
+  final double? temp;
+  final double? tempMax;
+  final double? tempMin;
+  final double? lat;
+  final double? long;
+  final double? feelsLike;
+  final int? pressure;
+  final String? description;
+  final String? currently;
+  final int? humidity;
+  final double? windSpeed;
+  final String? cityName;
 
   Weather({
     this.temp,

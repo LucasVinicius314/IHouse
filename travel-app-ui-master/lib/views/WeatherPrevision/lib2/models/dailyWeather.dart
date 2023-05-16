@@ -2,10 +2,10 @@ import 'package:flutter/cupertino.dart';
 
 class DailyWeather with ChangeNotifier {
   final dynamic dailyTemp;
-  final String condition;
-  final DateTime date;
-  final String precip;
-  final int uvi;
+  final String? condition;
+  final DateTime? date;
+  final String? precip;
+  final int? uvi;
 
   DailyWeather({
     this.dailyTemp,

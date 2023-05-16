@@ -16,19 +16,25 @@ final TextEditingController _secondNameController = TextEditingController();
 final TextEditingController _passwordController = TextEditingController();
 final TextEditingController _emailController = TextEditingController();
 
-Future<void> postUserData(String firstName, String secondName, String password, String email) async {
+Future<void> postUserData(
+    String firstName, String secondName, String password, String email) async {
   final url = Uri.parse('https://localhost:7185/api/Users');
   final headers = {'Content-Type': 'application/json'};
-  final data = {'id': 3, 'username': firstName + secondName, 'email': email, 'password': password};
+  final data = {
+    'id': 3,
+    'username': firstName + secondName,
+    'email': email,
+    'password': password
+  };
   var response;
 
-  try{
+  try {
     response = await http.post(
-    url,
-    headers: headers,
-    body: json.encode(data),
-  );
-  }catch(e){
+      url,
+      headers: headers,
+      body: json.encode(data),
+    );
+  } catch (e) {
     print('Ocorreu uma exceção: $e');
   }
 
@@ -40,7 +46,7 @@ Future<void> postUserData(String firstName, String secondName, String password, 
 }
 
 class _Register extends State<Register> {
-final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   bool checkedValue = false;
   bool checkboxValue = false;
 
@@ -90,21 +96,27 @@ final _formKey = GlobalKey<FormState>();
                             ],
                           ),
                         ),
-                        SizedBox(height: 30,),
+                        SizedBox(
+                          height: 30,
+                        ),
                         Container(
                           child: TextFormField(
                             controller: _firstNameController,
                             style: TextStyle(color: Colors.black),
-                            decoration: ThemeHelper().textInputDecoration('Primeiro Nome', 'Digite o seu primeiro nome'),
+                            decoration: ThemeHelper().textInputDecoration(
+                                'Primeiro Nome', 'Digite o seu primeiro nome'),
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
-                        SizedBox(height: 30,),
+                        SizedBox(
+                          height: 30,
+                        ),
                         Container(
                           child: TextFormField(
                             controller: _secondNameController,
                             style: TextStyle(color: Colors.black),
-                            decoration: ThemeHelper().textInputDecoration('Sobrenome', 'Digite o seu sobrenome'),
+                            decoration: ThemeHelper().textInputDecoration(
+                                'Sobrenome', 'Digite o seu sobrenome'),
                           ),
                           decoration: ThemeHelper().inputBoxDecorationShaddow(),
                         ),
@@ -113,11 +125,14 @@ final _formKey = GlobalKey<FormState>();
                           child: TextFormField(
                             controller: _emailController,
                             style: TextStyle(color: Colors.black),
-                            decoration: ThemeHelper().textInputDecoration("E-mail", "Digite seu email"),
+                            decoration: ThemeHelper().textInputDecoration(
+                                "E-mail", "Digite seu email"),
                             keyboardType: TextInputType.emailAddress,
                             validator: (val) {
                               // ignore: prefer_is_not_empty
-                              if(!(val.isEmpty) && !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$").hasMatch(val)){
+                              if (!(val!.isEmpty) &&
+                                  !RegExp(r"^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?(?:\.[a-zA-Z0-9](?:[a-zA-Z0-9-]{0,253}[a-zA-Z0-9])?)*$")
+                                      .hasMatch(val)) {
                                 return "Digite um email válido!";
                               }
                               return null;
@@ -134,7 +149,7 @@ final _formKey = GlobalKey<FormState>();
                             decoration: ThemeHelper().textInputDecoration(
                                 "Senha", "Digite a sua senha"),
                             validator: (val) {
-                              if (val.isEmpty) {
+                              if (val!.isEmpty) {
                                 return "Por favor, digite a sua senha";
                               }
                               return null;
@@ -153,11 +168,14 @@ final _formKey = GlobalKey<FormState>();
                                         value: checkboxValue,
                                         onChanged: (value) {
                                           setState(() {
-                                            checkboxValue = value;
+                                            checkboxValue = value!;
                                             state.didChange(value);
                                           });
                                         }),
-                                    Text("Aceito todos os termos e condições.", style: TextStyle(color: Colors.grey),),
+                                    Text(
+                                      "Aceito todos os termos e condições.",
+                                      style: TextStyle(color: Colors.grey),
+                                    ),
                                   ],
                                 ),
                                 Container(
@@ -165,7 +183,11 @@ final _formKey = GlobalKey<FormState>();
                                   child: Text(
                                     state.errorText ?? '',
                                     textAlign: TextAlign.left,
-                                    style: TextStyle(color: Theme.of(context).colorScheme.error,fontSize: 12,),
+                                    style: TextStyle(
+                                      color:
+                                          Theme.of(context).colorScheme.error,
+                                      fontSize: 12,
+                                    ),
                                   ),
                                 )
                               ],
@@ -181,10 +203,12 @@ final _formKey = GlobalKey<FormState>();
                         ),
                         SizedBox(height: 20.0),
                         Container(
-                          decoration: ThemeHelper().buttonBoxDecoration(context),
+                          decoration:
+                              ThemeHelper().buttonBoxDecoration(context),
                           child: ElevatedButton(
                             child: Padding(
-                              padding: const EdgeInsets.fromLTRB(40, 10, 40, 10),
+                              padding:
+                                  const EdgeInsets.fromLTRB(40, 10, 40, 10),
                               child: Text(
                                 "Cadastrar".toUpperCase(),
                                 style: TextStyle(
@@ -195,15 +219,17 @@ final _formKey = GlobalKey<FormState>();
                               ),
                             ),
                             onPressed: () {
-                              if (_formKey.currentState.validate()) {
+                              if (_formKey.currentState!.validate()) {
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(
-                                        builder: (context) => HomePage()
-                                    ),
-                                        (Route<dynamic> route) => false
-                                );
+                                        builder: (context) => HomePage()),
+                                    (Route<dynamic> route) => false);
                               }
-                              postUserData(_firstNameController.text, _secondNameController.text, _emailController.text, _passwordController.text);
+                              postUserData(
+                                  _firstNameController.text,
+                                  _secondNameController.text,
+                                  _emailController.text,
+                                  _passwordController.text);
                             },
                           ),
                         ),

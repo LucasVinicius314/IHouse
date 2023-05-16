@@ -10,8 +10,8 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
-  AnimationController _controller;
-  Animation<Offset> _offsetAnimation;
+  AnimationController? _controller;
+  Animation<Offset>? _offsetAnimation;
 
   @override
   void initState() {
@@ -22,7 +22,7 @@ class _SplashScreenState extends State<SplashScreen>
       begin: Offset(0, 1.0),
       end: Offset.zero,
     ).animate(CurvedAnimation(
-      parent: _controller,
+      parent: _controller!,
       curve: Curves.easeInOut,
     ));
 
@@ -30,12 +30,12 @@ class _SplashScreenState extends State<SplashScreen>
       Navigator.pushNamed(context, AppRoutes.ROUTE_Login);
     });
 
-    _controller.forward();
+    _controller?.forward();
   }
 
   @override
   void dispose() {
-    _controller.dispose();
+    _controller?.dispose();
     super.dispose();
   }
 
@@ -49,7 +49,7 @@ class _SplashScreenState extends State<SplashScreen>
             child: Align(
               alignment: Alignment.center,
               child: SlideTransition(
-                position: _offsetAnimation,
+                position: _offsetAnimation!,
                 child: ClipRRect(
                   child: Image(
                     image: AssetImage('assets/image/logo.jpg'),
